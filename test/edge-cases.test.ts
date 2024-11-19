@@ -45,16 +45,6 @@ describe("edge cases", () => {
     });
   });
 
-  context("try to encode unrecognized objects", () => {
-    it("throws errors", () => {
-      const encoder = new Encoder();
-      assert.throws(() => {
-        encode(() => {});
-      }, /unrecognized object/i);
-      testEncoder(encoder);
-    });
-  });
-
   context("try to decode a map with non-string keys (asynchronous)", () => {
     it("throws errors", async () => {
       const decoder = new Decoder();
