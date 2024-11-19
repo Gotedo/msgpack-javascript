@@ -132,7 +132,7 @@ export class Encoder<ContextType = undefined> {
       throw new Error(`Too deep objects in depth ${depth}`);
     }
 
-    if (object == null) {
+    if (object == null || typeof object === "undefined") {
       this.encodeNil();
     } else if (typeof object === "boolean") {
       this.encodeBoolean(object);
@@ -302,6 +302,8 @@ export class Encoder<ContextType = undefined> {
       this.encodeBinary(object);
     } else if (typeof object === "object") {
       this.encodeMap(object as Record<string, unknown>, depth);
+    } else if (typeof object === "function") {
+      this.encodeNil();
     } else {
       // symbol, function and other special object come here unless extensionCodec handles them.
       throw new Error(`Unrecognized object: ${Object.prototype.toString.apply(object)}`);
